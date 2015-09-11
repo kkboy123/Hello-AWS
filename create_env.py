@@ -1,24 +1,14 @@
 __author__ = 'kkboy'
 
-from utils.auth import aws_access_key_id, aws_secret_access_key
-import boto.vpc
-from boto.vpc import VPCConnection
-import logging.config
-from envs import kk_vpc
 
-kk_vpc.create_vpc("10.0.0.0/24", "kkboy_vpc")
+from envs import kk_network
+
+#kk_network.create_vpc("10.0.0.0/24", "kkboy_vpc")
 
 
 
 
 
-# c = boto.vpc.connect_to_region("us-west-2",
-#                                   aws_access_key_id=aws_access_key_id,
-#                                   aws_secret_access_key=aws_secret_access_key)
 
-
-
-# vpcs = c.get_all_vpcs()
-# for vpc in vpcs:
-#     print vpc.id
-
+vpc_id = "vpc-f76e2b92"
+kk_network.create_subnet(vpc_id, "10.0.0.0/25", "sn001")

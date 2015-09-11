@@ -99,9 +99,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-.idea/workspace.xml
-.idea/.name
-.idea/Hello-AWS.iml
-.idea/modules.xml
-.idea/misc.xml
-.idea/vcs.xml
+.idea/*
+

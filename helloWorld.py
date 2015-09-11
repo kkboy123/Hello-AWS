@@ -1,14 +1,8 @@
 __author__ = 'kkboy'
 
 
-import csv
+from utils.auth import aws_access_key_id, aws_secret_access_key
 import boto.ec2
-
-with open('D:/AWS/automa/credentials.csv', 'rb') as csvFile:
-    spamReader = csv.reader(csvFile, delimiter=',', quotechar='|')
-    for row in spamReader:
-        aws_access_key_id = row[0]
-        aws_secret_access_key = row[1]
 
 # connect to us-west-2 with key pairs which is stored in local
 conn = boto.ec2.connect_to_region("us-west-2",

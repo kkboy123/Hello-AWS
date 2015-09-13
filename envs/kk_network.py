@@ -11,8 +11,8 @@ def create_vpc(vpc_cidr, tag_name=None):
     try:
         logger.debug("create VPC connection")
         c = boto.vpc.connect_to_region("us-west-2",
-                                          aws_access_key_id=aws_access_key_id,
-                                          aws_secret_access_key=aws_secret_access_key)
+                                       aws_access_key_id=aws_access_key_id,
+                                       aws_secret_access_key=aws_secret_access_key)
         vpc = c.create_vpc(vpc_cidr)
         logger.info("vpc id : %s" % vpc.id)
         logger.info("modify DNS setting")
@@ -34,8 +34,8 @@ def create_subnet(vpc_id, subnet_cidr, tag_name=None):
     try:
         logger.debug("create VPC connection")
         c = boto.vpc.connect_to_region("us-west-2",
-                                          aws_access_key_id=aws_access_key_id,
-                                          aws_secret_access_key=aws_secret_access_key)
+                                       aws_access_key_id=aws_access_key_id,
+                                       aws_secret_access_key=aws_secret_access_key)
         subnet = c.create_subnet(vpc_id, subnet_cidr)
         logger.info("subnet id : %s" % subnet.id)
         if tag_name is not None:

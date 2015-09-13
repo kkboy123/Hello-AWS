@@ -2,6 +2,10 @@ __author__ = 'kkboy'
 
 import csv
 import boto
+from boto.ec2 import EC2Connection
+from boto.vpc import VPCConnection
+
+
 # get key pair from files
 with open('D:/AWS/automa/credentials.csv', 'rb') as csvFile:
     spamReader = csv.reader(csvFile, delimiter=',', quotechar='|')

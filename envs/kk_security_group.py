@@ -1,9 +1,7 @@
 __author__ = 'kkboy'
 
 import logging
-from utils.auth import aws_access_key_id, aws_secret_access_key
-import boto.vpc
-from boto.vpc import VPCConnection
+from utils.auth import get_vpc_connection
 from config.security_group_conf import SECURITY_GROUPS
 
 
@@ -12,9 +10,7 @@ def create_security(vpv_id):
     security_group_ids = []
     try:
         logger.debug("create VPC connection")
-        c = boto.vpc.connect_to_region("us-west-2",
-                                       aws_access_key_id=aws_access_key_id,
-                                       aws_secret_access_key=aws_secret_access_key)
+        c = get_vpc_connection()
         # create security groups base on config file
         for security_group in SECURITY_GROUPS:
             sg = c.create_security_group(security_group.security_group_name,

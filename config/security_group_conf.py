@@ -22,6 +22,8 @@ TEST_RULES = [
 SecurityGroup = collections.namedtuple("SecurityGroup", ["security_group_name", "description", "rules_in", "rules_out"])
 
 SECURITY_GROUPS = [
-    SecurityGroup("Cassandra Cluster", "Cassandra Cluster description", CASSANDRA_RULES, CASSANDRA_RULES),
+    # gw
     SecurityGroup("Test", "Test description", TEST_RULES, TEST_RULES),
+    # others
+    SecurityGroup("Cassandra Cluster", "Cassandra Cluster description", CASSANDRA_RULES, CASSANDRA_RULES),
 ]

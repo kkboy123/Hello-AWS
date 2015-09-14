@@ -73,3 +73,34 @@ def create_nat_instance(ami_id, key_name, instance_type, security_group_ids,
         return instance_id
     except Exception, e:
         logger.error(e)
+
+def create_internet_gateway(tag_name=None):
+    logger = logging.getLogger(__name__)
+    try:
+        logger.debug("create VPC connection")
+        c = get_vpc_connection()
+        ig = c.create_internet_gateway()
+        logger.info("ig id : %s" % ig.id)
+        if tag_name is not None:
+            logger.info("create tag Name : %s" % tag_name)
+            c.create_tags(ig.id,
+                          {"Name": tag_name})
+        logger.debug("close VPC connection")
+        c.close()
+        return ig.id
+    except Exception, e:
+        logger.error(e)
+
+
+def attach_internet_gateway_to_vpc(ig_id, vpc_id):
+    logger = logging.getLogger(__name__)
+    try:
+        logger.debug("create VPC connection")
+        c = get_vpc_connection()
+        logger.info("attaching ig %s to vpc %s " % (ig_id, vpc_id))
+        c.attach_internet_gateway(ig_id, vpc_id)
+        logger.debug("close VPC connection")
+        c.close()
+    except Exception, e:
+        logger.error(e)
+        

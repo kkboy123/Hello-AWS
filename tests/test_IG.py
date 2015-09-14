@@ -2,9 +2,9 @@ __author__ = 'kkboy'
 
 import boto
 import boto.vpc
-from util.auth import get_ec2_connection
+from utils.auth import get_ec2_connection
 from boto.vpc import VPCConnection
-from util.auth import aws_access_key_id, aws_secret_access_key
+from utils.auth import aws_access_key_id, aws_secret_access_key
 
 conn = boto.vpc.connect_to_region("us-west-2",
                                   aws_access_key_id=aws_access_key_id,

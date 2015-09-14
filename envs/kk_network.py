@@ -103,4 +103,3 @@ def attach_internet_gateway_to_vpc(ig_id, vpc_id):
         c.close()
     except Exception, e:
         logger.error(e)
-        

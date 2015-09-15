@@ -26,7 +26,6 @@ def create_vpc(vpc_cidr, tag_name=None):
         logger.error(e)
 
 
-
 def create_subnet(vpc_id, subnet_cidr, tag_name=None):
     logger = logging.getLogger(__name__)
     try:
@@ -43,7 +42,6 @@ def create_subnet(vpc_id, subnet_cidr, tag_name=None):
         return subnet.id
     except Exception, e:
         logger.error(e)
-
 
 
 def create_nat_instance(ami_id, key_name, instance_type, security_group_ids,
@@ -73,6 +71,7 @@ def create_nat_instance(ami_id, key_name, instance_type, security_group_ids,
         return instance_id
     except Exception, e:
         logger.error(e)
+
 
 def create_internet_gateway(tag_name=None):
     logger = logging.getLogger(__name__)

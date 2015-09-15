@@ -1,6 +1,6 @@
 __author__ = 'kkboy'
 
-from utils.auth import aws_access_key_id, aws_secret_access_key
+from util.auth import aws_access_key_id, aws_secret_access_key
 from boto.ec2.securitygroup import SecurityGroup
 from boto.ec2 import EC2Connection
 import boto.vpc

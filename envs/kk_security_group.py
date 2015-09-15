@@ -1,7 +1,7 @@
 __author__ = 'kkboy'
 
 import logging
-from utils.auth import get_vpc_connection
+from util.auth import get_vpc_connection
 from config.security_group_conf import SECURITY_GROUPS
 
 

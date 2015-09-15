@@ -1,9 +1,9 @@
 __author__ = 'kkboy'
 import boto
 import boto.ec2
-from utils.auth import get_ec2_connection
+from util.auth import get_ec2_connection
 from boto.ec2 import EC2Connection
-from utils.auth import aws_access_key_id, aws_secret_access_key
+from util.auth import aws_access_key_id, aws_secret_access_key
 
 
 ami_id = "ami-290f4119"

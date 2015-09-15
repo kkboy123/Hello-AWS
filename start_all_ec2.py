@@ -1,6 +1,6 @@
 __author__ = 'ken_chang'
 
-from utils.auth import aws_access_key_id, aws_secret_access_key
+from util.auth import aws_access_key_id, aws_secret_access_key
 import boto.vpc
 from boto.ec2.instance import Reservation
 

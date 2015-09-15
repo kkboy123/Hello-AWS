@@ -1,8 +1,8 @@
 __author__ = 'kkboy'
 
 import logging
-from utils.auth import get_vpc_connection
-from utils.auth import get_ec2_connection
+from util.auth import get_vpc_connection
+from util.auth import get_ec2_connection
 
 
 def create_vpc(vpc_cidr, tag_name=None):

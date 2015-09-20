@@ -15,3 +15,4 @@ nat_id = "i-53745296"
 eip = conn.allocate_address()
 eip.associate(nat_id)
 
+from boto.ec2.address import Address

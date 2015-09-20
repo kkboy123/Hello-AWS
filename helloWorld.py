@@ -1,7 +1,7 @@
 __author__ = 'kkboy'
 
 
-from util.auth import aws_access_key_id, aws_secret_access_key
+from utils.auth import aws_access_key_id, aws_secret_access_key
 import boto.ec2
 
 # connect to us-west-2 with key pairs which is stored in local

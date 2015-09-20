@@ -1,36 +1,34 @@
-__author__ = 'kkboy'
+__author__ = 'ken_chang'
+
+from envs import kk_ec2, kk_security, kk_r53
+from config.domain_conf import vpc_domain_name
+from config.vpc_conf import vpc_conf, subnets_conf, nat_config, customer_rt_cong
 
 
-from envs import kk_network
-from envs import kk_security_group
+''' create VPC'''
+vpc_id, ig_id = kk_ec2.create_vpc(vpc_conf.cidr, vpc_conf.tag_name)
 
-# vpc_id = kk_network.create_vpc("10.0.0.0/24", "kkboy_vpc")
+'''create subnets based on config and save id of subnets'''
+my_subnets_conf = {}
+for subnet_name, subnet_conf in subnets_conf.items():
+    subnet_id = kk_ec2.create_subnet(vpc_id,
+                                     subnet_conf.cidr,
+                                     subnet_conf.tag_name)
+    my_subnets_conf[subnet_name] = subnet_id
 
-vpc_id = "vpc-f76e2b92"
-# subnet_ids = []
-# #public subnet
-# subnet_ids.append(kk_network.create_subnet(vpc_id, "10.0.0.0/25", "kkboy_sn001"))
-# # private subnet
-# subnet_ids.append(kk_network.create_subnet(vpc_id, "10.0.0.128/25", "kkboy_sn002"))
+''' create security group based on config'''
+my_security_group = kk_security.create_security_group(vpc_id)
 
-subnet_ids = ["subnet-2aeea54f", "subnet-35eea550"]
+'''create a NAT instance'''
+nat_id = kk_ec2.create_nat(nat_config.ami_id,
+                           nat_config.key_name,
+                           nat_config.instance_type,
+                           [my_security_group.get(nat_config.security_group_names)],
+                           my_subnets_conf.get(nat_config.subnet_names),
+                           nat_config.tag_name)
 
-#security_group_ids = kk_security_group.create_security(vpc_id)
+'''setup routes'''
+kk_ec2.setup_route(vpc_id, nat_id, ig_id, my_subnets_conf.get(customer_rt_cong.get("subnet_name")), vpc_conf.tag_name)
 
-security_group_ids = ["sg-73a92917", "sg-73a92917"]
-
-ami_id = "ami-290f4119"
-key_name = 'kkboy_ec2'
-nat_instance_type = 't2.micro'
-nat_private_ip_address = '10.0.0.25'
-nat_tag_name = "nat_test"
-nat_id = kk_network.create_nat_instance(ami_id,
-                                        key_name=key_name,
-                                        instance_type=nat_instance_type,
-                                        security_group_ids=[security_group_ids[0]],
-                                        subnet_id=subnet_ids[0],
-                                        private_ip_address=nat_private_ip_address,
-                                        tag_name=nat_tag_name)
-nat_id = "i-53745296"
-
-
+''' create hosted private zone '''
+kk_r53.create_hosted_private_zone(vpc_id, vpc_domain_name)

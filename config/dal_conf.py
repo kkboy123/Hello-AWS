@@ -7,7 +7,7 @@ from config import prefix, postfix, key_name,InstancesGroup, InstancesConf
 
 
 ''' read vpc configs from specific file for further retrieval '''
-with open('config/vpc_conf.json') as data_file:
+with open('config/kkboy_vpc_conf.json') as data_file:
     ec2_conf = json.load(data_file)
 
 

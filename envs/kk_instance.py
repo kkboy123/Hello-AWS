@@ -23,7 +23,7 @@ def create_instances(conf_name):
     key_name = _module.GROUP.key_name
     logger.info("key name  : %s" % key_name)
     logger.info("retrieve instances info")
-    instance_ids = []
+    _instance_ids = []
     _dns_mapping = {}
     for instance in _module.GROUP.instances:
         ami_id = instance.ami_id
@@ -47,7 +47,8 @@ def create_instances(conf_name):
                                       SubnetId=subnet_id,
                                       BlockDeviceMappings=disks,
                                       **kargs)
-        instance_ids.extend([Instance.get("InstanceId") for Instance in result.get("Instances")])
+        instance_ids = [Instance.get("InstanceId") for Instance in result.get("Instances")]
+        _instance_ids.extend(instance_ids)
         private_ips = [Instance.get("PrivateIpAddress") for Instance in result.get("Instances")]
         logger.info("instance ids : %s" % instance_ids)
         logger.info("private ips : %s" % private_ips)
@@ -59,6 +60,6 @@ def create_instances(conf_name):
                                       "Value": name % (serial+1)}])
     ''' to do add records to r53'''
     logger.info(_dns_mapping)
-    return instance_ids
+    return _instance_ids
     # except Exception, e:
     #     logger.error(e)
